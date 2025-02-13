@@ -1,0 +1,81 @@
+package Exam;
+import java.util.Scanner;
+
+public class Exam
+{
+	public static void main(String[] args)
+	{
+		Ask();
+	}
+	
+	static void Ask()
+	{
+		String which;
+		Scanner input = new Scanner(System.in);
+		System.out.print("1-Find Student, 2-Add Student");
+		which=input.nextLine();
+		switch(which)
+		{
+		case "1":
+			FindStudent();
+			break;
+		case "2":
+			AddStudent();
+			break;
+		default:
+			System.out.println("Your Input is invalid, please try again");
+			Ask();
+		}
+	}
+	
+	static void FindStudent()
+	{
+		String filename;
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the Student ID:");
+		filename=input.nextLine();
+		Checkfile(filename);
+	}
+	
+	static void Checkfile(String name)
+	{
+		System.out.println("Check");
+	}
+	
+	static void AddStudent()
+	{
+		String filename;
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the Student ID:");
+		filename=input.nextLine();
+		Checkfile(filename);
+		if (filename == "true")
+		{
+			System.out.println("This student already added");
+			ReadFile(filename);
+			Ask();
+		}
+		else
+		{
+			Write(filename);
+		}
+		
+	}
+	
+	static void ReadFile(String filename)
+	{
+		System.out.println("Read");
+	}
+	
+	static void Write(String filename)
+	{
+		String student, grade;
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the Student Name:");
+		student=input.nextLine();
+		System.out.println("What grade did this student in:");
+		grade=input.nextLine();
+		System.out.println("What classes did this student take");
+		grade=input.nextLine();
+	}
+}
