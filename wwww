@@ -1,0 +1,98 @@
+import java.util.Scanner;
+public class Classroom {
+	String[] teachNames, studeNames;
+	Scanner scan = new Scanner(System.in);
+
+	
+	public Classroom(int x, int n) {
+		String[] teaNames = new String[n], stuNames = new String[x];
+		for (int i = 0; i<n; i++) {
+			System.out.println("What is the name of the teacher in room # " + (i + 1));
+			teaNames[i] = scan.nextLine();
+		}
+		
+		for (int i = 0; i<n; i++) {
+			System.out.println("What is the name of student" + (i + 1));
+			stuNames[i] = scan.nextLine();
+		}
+		this.teachNames = teaNames;
+		this.studeNames = stuNames;
+	}
+	
+}
+
+
+
+
+import java.util.Scanner;
+
+public class MainMenu {
+	public static void main(String[] args) {
+	int x,n;
+	Scanner scan = new Scanner(System.in);
+	System.out.println("How many students?");
+	x = scan.nextInt();
+	System.out.println("How many classrooms?");
+	n = scan.nextInt();
+	
+	School scl = new School(x, n);
+	Classroom cls = new Classroom(x, n);
+	Student stu = new Student();
+	
+	System.out.println("What is the name of the teacher?");
+	
+	String tName = scan.nextLine(), sName = stu.sName;
+	int stuId = stu.sID;
+	String[] tnames = cls.teachNames;
+	int rooms = n;
+	String output = scl.findStudent(tName, stuId, tnames, n);
+	System.out.println(output);
+	
+	}
+}
+
+
+
+
+import java.util.Scanner;
+public class School {
+	String stuExist;
+	
+	public School(int x, int n) {
+		int[] room = new int[n];
+		for(int i = 1; i<=n; i++) { //creates array with every room number starting from 1
+			room[i-1] = i;
+		}
+	}
+	
+	public void findStudent(String teachName, int stuId, String[] tNames, int rooms) {
+		String studentExist, stuName;
+		int classroomNum, n = tNames.length;
+		
+		for (int i=0; i<n; i++) {
+			
+		}
+		
+		
+		this.stuExist = studentExist;
+	}
+}
+
+
+
+
+import java.util.Scanner;
+
+public class Student {
+	Scanner scan = new Scanner(System.in);
+	int sID;
+	String sName;
+	public Student() {
+			System.out.println("What is the student's name");
+			String studentname = scan.nextLine();
+			System.out.println("What is the student's id");
+			int studentid = scan.nextInt();
+			this.sName = studentname;
+			this.sID = studentid;
+	}
+}
