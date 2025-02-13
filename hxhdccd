@@ -1,0 +1,189 @@
+import java.util.Scanner;
+
+public class Classroom {
+    String teacherName,period;
+    int roomNumber;
+    String[] students;
+
+    public Classroom(String teacherName, int roomNumber, String period, String[] students) {
+        this.teacherName = teacherName;
+        this.roomNumber = roomNumber;
+        this.period = period;
+        this.students = students;
+    }
+
+    public void displayClassInfo() {
+        System.out.println("Teacher: " + teacherName);
+        System.out.println("Room Number: " + roomNumber);
+        System.out.println("Period: " + period);
+        System.out.println("Students: ");
+        for (String student : students) {
+            System.out.println(" - " + student);
+        }
+    }
+}
+
+
+
+
+
+import java.util.Scanner;
+
+public class Menu {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("How many students?");
+        int numStudents = input.nextInt();
+
+        System.out.println("How many classrooms?");
+        int numClassrooms = input.nextInt();
+
+        // Create a School instance
+        School school = new School(numStudents, numClassrooms);
+        
+        // Add students
+        for (int i = 0; i < numStudents; i++) {
+            System.out.println("Enter details for student " + (i + 1));
+            System.out.println("Student ID (9 digits):");
+            int id = input.nextInt();
+            input.nextLine(); // Consume newline left-over
+            System.out.println("Student Name:");
+            String name = input.nextLine();
+            System.out.println("Grade:");
+            String grade = input.nextLine();
+            System.out.println("Enter number of classes for this student:");
+            int numClasses = input.nextInt();
+            input.nextLine(); // Consume newline
+            String[] classes = new String[numClasses];
+            for (int j = 0; j < numClasses; j++) {
+                System.out.println("Enter class name " + (j + 1) + ":");
+                classes[j] = input.nextLine();
+            }
+            school.addStudent(i, id, name, grade, classes);
+        }
+
+        // Add classrooms
+        for (int i = 0; i < numClassrooms; i++) {
+            System.out.println("Enter details for classroom " + (i + 1));
+            System.out.println("Teacher Name:");
+            String teacherName = input.nextLine();
+            System.out.println("Room Number:");
+            int roomNumber = scan.nextInt();
+            input.nextLine(); // Consume newline
+            System.out.println("Period:");
+            String period = input.nextLine();
+            System.out.println("Enter number of students in this class:");
+            int numStudentsInClass = input.nextInt();
+            input.nextLine(); // Consume newline
+            String[] studentList = new String[numStudentsInClass];
+            for (int j = 0; j < numStudentsInClass; j++) {
+                System.out.println("Enter student name " + (j + 1) + ":");
+                studentList[j] = input.nextLine();
+            }
+            school.addClassroom(i, teacherName, roomNumber, period, studentList);
+        }
+
+        // Interact with user to find student or display class info
+        System.out.println("1 - Find Student by ID");
+        System.out.println("2 - Display Classroom Info by Room Number");
+        int choice = input.nextInt();
+
+        if (choice == 1) {
+            System.out.println("Enter Student ID:");
+            int studentId = input.nextInt();
+            school.findStudentById(studentId);
+        } else if (choice == 2) {
+            System.out.println("Enter Classroom Room Number:");
+            int roomNumber = input.nextInt();
+            school.displayClassroomInfo(roomNumber);
+        } else {
+            System.out.println("Invalid choice.");
+        }
+    }
+}
+
+
+
+
+
+import java.util.Scanner;
+
+public class School {
+    Student[] students;
+    Classroom[] classrooms;
+
+    public School(int numStudents, int numClassrooms) {
+        students = new Student[numStudents];
+        classrooms = new Classroom[numClassrooms];
+    }
+
+    // Add student to the school
+    public void addStudent(int index, int id, String name, String grade, String[] classes) {
+        students[index] = new Student(id, name, grade, classes);
+    }
+
+    // Find student by ID
+    public void findStudentById(int id) {
+        boolean found = false;
+        for (Student student : students) {
+            if (student != null && student.sID == id) {
+                student.displayInfo();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Student with ID " + id + " not found.");
+        }
+    }
+
+    // Display classroom info by room number
+    public void displayClassroomInfo(int roomNumber) {
+        boolean found = false;
+        for (Classroom classroom : classrooms) {
+            if (classroom != null && classroom.roomNumber == roomNumber) {
+                classroom.displayClassInfo();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Classroom with room number " + roomNumber + " not found.");
+        }
+    }
+
+    // Add classroom
+    public void addClassroom(int index, String teacherName, int roomNumber, String period, String[] students) {
+        classrooms[index] = new Classroom(teacherName, roomNumber, period, students);
+    }
+}
+
+
+
+import java.util.Scanner;
+
+public class Student {
+    int sID;        // Student ID (9 digits)
+    String sName;   // Student name
+    String grade;   // Student's grade
+    String[] classes; // Classes the student is taking
+
+    public Student(int id, String name, String grade, String[] classes) {
+        this.sID = id;
+        this.sName = name;
+        this.grade = grade;
+        this.classes = classes;
+    }
+
+    public void displayInfo() {
+        System.out.println("Student Name: " + sName);
+        System.out.println("Student ID: " + sID);
+        System.out.println("Grade: " + grade);
+        System.out.println("Classes: ");
+        for (String c : classes) {
+            System.out.println(" - " + c);
+        }
+    }
+}
