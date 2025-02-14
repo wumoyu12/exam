@@ -1,0 +1,100 @@
+public class Main {
+    public static void main(String[] args) {
+        // 创建学生
+        Student[] students1 = {
+            new Student("Alice", 101),
+            new Student("Bob", 102),
+            new Student("Charlie", 103)
+        };
+        Student[] students2 = {
+            new Student("David", 201),
+            new Student("Eve", 202),
+            new Student("Frank", 203)
+        };
+
+        // 创建教室
+        Classroom classroom1 = new Classroom("Mr. Smith", students1);
+        Classroom classroom2 = new Classroom("Ms. Johnson", students2);
+
+        // 创建学校
+        Classroom[] classrooms = {classroom1, classroom2};
+        School school = new School(classrooms);
+
+        // 测试 findStudent 方法
+        System.out.println(school.findStudent("Mr. Smith", 102)); // 输出：Bob
+        System.out.println(school.findStudent("Ms. Johnson", 204)); // 输出：Student Not Found
+    }
+}
+
+public class School {
+    private Classroom[] classrooms;
+
+    public School(Classroom[] classrooms) {
+        this.classrooms = classrooms;
+    }
+
+    // 顺序查找：根据老师的名字找到教室
+    public String findStudent(String teacherName, int studentID) {
+        for (Classroom classroom : classrooms) {
+            if (classroom.getTeacherName().equals(teacherName)) {
+                return classroom.findStudentByID(studentID);
+            }
+        }
+        return "Student Not Found";
+    }
+}
+
+public class Classroom {
+    private String teacherName;
+    private Student[] students;
+
+    public Classroom(String teacherName, Student[] students) {
+        this.teacherName = teacherName;
+        this.students = students;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public Student[] getStudents() {
+        return students;
+    }
+
+    // 二分查找：根据学生ID查找学生
+    public String findStudentByID(int studentID) {
+        int low = 0;
+        int high = students.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (students[mid].getStudentID() == studentID) {
+                return students[mid].getStudentName();
+            } else if (students[mid].getStudentID() < studentID) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return "Student Not Found";
+    }
+}
+
+
+public class Student {
+    private String studentName;
+    private int studentID;
+
+    public Student(String studentName, int studentID) {
+        this.studentName = studentName;
+        this.studentID = studentID;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public int getStudentID() {
+        return studentID;
+    }
+}
